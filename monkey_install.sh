@@ -4,9 +4,9 @@ TMP_FOLDER=$(mktemp -d)
 CONFIG_FILE='monkey.conf'
 CONFIGFOLDER='/root/.monkey'
 COIN_DAEMON='monkeyd'
-COIN_CLI='monkeyd'
+COIN_CLI='monkey-cli'
 COIN_PATH='/usr/local/bin/'
-COIN_TGZ='https://github.com/MONKEYPROJECT/Monkey/releases/download/v2.1.2/monkeyd-v2.1.2-linux.zip'
+COIN_TGZ='https://github.com/MONKEYPROJECT/MonkeyV2/releases/download/v2.2.0/monkey-2.2.0-x86_64-linux-gnu.tar.gz'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
 COIN_NAME='Monkey'
 COIN_PORT=8710
@@ -25,9 +25,8 @@ function download_node() {
   cd $TMP_FOLDER >/dev/null 2>&1
   wget -q $COIN_TGZ
   compile_error
-  unzip $COIN_ZIP >/dev/null 2>&1
-  chomod +x $COIN_DAEMON
-  cp $COIN_DAEMON $COIN_PATH
+  tar xvzf $COIN_ZIP --strip 2 >/dev/null 2>&1
+  cp $COIN_DAEMON $COIN_CLI $COIN_PATH
   cd - >/dev/null 2>&1
   rm -rf $TMP_FOLDER >/dev/null 2>&1
   clear
